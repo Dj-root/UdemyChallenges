@@ -1,5 +1,6 @@
 package com.holms.unit9;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Array {
@@ -8,7 +9,10 @@ public class Array {
 
     public static void main(String[] args) {
         int[] myIntegers = getIntegers(5);
-
+        printArray(myIntegers);
+        int[] sortedInts = sortIntegers(myIntegers);
+        System.out.println("\nArray was sorted in desceding order2" );
+        printArray(sortedInts);
     }
 
 
@@ -23,12 +27,30 @@ public class Array {
         return values;
     }
 
-    public void printArray(int[] srcArray) {
+    public static void printArray(int[] srcArray) {
+        System.out.println("Your array contains:");
+        for (int i = 0; i < srcArray.length; i++) {
+            System.out.println("Element " + i + ": " + srcArray[i]);
+        }
 
     }
 
-    public int[] sortIntegers(int[] srcArray) {
+    public static int[] sortIntegers(int[] srcArray) {
+        int swap;
+        int[] sortedArray = Arrays.copyOf(srcArray, srcArray.length);
 
-        return null;
+        for (int i = 0; i < sortedArray.length; i++) {
+            for (int j = sortedArray.length-1; j > 0; j--) {
+                if (sortedArray[j] > sortedArray[j - 1]) {
+                    swap = sortedArray[j];
+                    sortedArray[j] = sortedArray[j - 1];
+                    sortedArray[j - 1] = swap;
+
+                    continue;
+                }
+            }
+        }
+
+        return sortedArray;
     }
 }
