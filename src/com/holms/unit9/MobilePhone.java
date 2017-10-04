@@ -31,16 +31,35 @@ public class MobilePhone {
         }
     }
 
-    public void updateContact(String item, String newContact ){
+    public void updateContact(String item, Contacts newContact) {
 
-        int position=findItem();
-
-        updateContact(position, newContact);
+        int position = findItem(newContact);
+        if (position >= 0) {
+            updateContact(position, newContact);
+        }
     }
+
+    public void removeContact(String contact) {
+        int position = findItem(contact);
+        Contacts currentContact;
+
+        if (position >= 0) {
+            currentContact = phoneBook.get(position);
+            System.out.println(currentContact.getName() + " was removed");
+            removeContact(position);
+        } else {
+            System.out.println("Contact " + contact + " was not found");
+        }
+    }
+
 
     private void updateContact(int position, Contacts newContact) {
         phoneBook.set(position, newContact);
         System.out.println("Contact " + newContact.getName() + " was modified");
+    }
+
+    private void removeContact(int position) {
+        phoneBook.remove(position);
     }
 
     private int findItem(String name) {
@@ -57,22 +76,25 @@ public class MobilePhone {
         return -1;
     }
 
+    private int findItem(Contacts contact) {
+        // using name or phone no
+        Contacts currentContact;
+        int position;
+        for (int i = 0; i < phoneBook.size(); i++) {
+            position = i;
+            currentContact = (phoneBook.get(position));
+            if (currentContact.getName().equals(contact.getName()) | currentContact.getPhoneNo().equals(contact.getPhoneNo())) {
+                return position;
+            }
+        }
+        return -1;
+    }
+
     private boolean isNameExists(String name) {
         if (findItem(name) >= 0) {
             return true;
         }
         return false;
-
-        // old code
-       /* Contacts currentContact;
-        for (int i = 0; i < phoneBook.size(); i++) {
-            currentContact = (phoneBook.get(i));
-            if (currentContact.getName().equals(name)){
-                return true;
-            }
-        }
-        return false;
-        */
     }
 
 //    , modify, remove and query
