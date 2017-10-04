@@ -13,7 +13,7 @@ public class Phone {
         addressBook.store(new Contacts("Petro", "1243"));
         addressBook.store(new Contacts("Vasyl", "321"));
 
-        addressBook.getAllContacts();
+        addressBook.printContactList();
 
     }
 }
