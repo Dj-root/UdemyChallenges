@@ -12,34 +12,38 @@ public class MobilePhone {
 
     public void printContactList() {
         Contacts currentContact;
-        System.out.println("Your contact list are: ");
+        if (phoneBook.size() <= 0) {
+            System.out.println("Your contact list is empty");
+        } else {
+            System.out.println("Your contact list are: ");
+        }
         for (int i = 0; i < phoneBook.size(); i++) {
             currentContact = (phoneBook.get(i));
             System.out.println(i + 1 + ". " + currentContact.getName() + " " + currentContact.getPhoneNo());//, currentContact.getPhoneNo().toString());
         }
     }
 
-    public void query(String name) {
-        if (isNameExists(name)) {
-            int position = findItem(name);
+    public void query(Contacts contact) {
+        if (isNameExists(contact)) {
+            int position = findItem(contact);
             Contacts currentContact;
 
             currentContact = phoneBook.get(position);
             System.out.println(currentContact.getName() + " " + currentContact.getPhoneNo());
         } else {
-            System.out.println("The contact " + name + " was not found");
+            System.out.println("The contact " + contact.getName() + " was not found");
         }
     }
 
-    public void updateContact(String item, Contacts newContact) {
+    public void updateContact(Contacts oldContact, Contacts newContact) {
 
-        int position = findItem(newContact);
+        int position = findItem(oldContact);
         if (position >= 0) {
             updateContact(position, newContact);
         }
     }
 
-    public void removeContact(String contact) {
+    public void removeContact(Contacts contact) {
         int position = findItem(contact);
         Contacts currentContact;
 
@@ -52,6 +56,12 @@ public class MobilePhone {
         }
     }
 
+    public boolean existsContact(Contacts contact){
+        if (isNameExists(contact)){
+            return true;
+        }
+        return false;
+    }
 
     private void updateContact(int position, Contacts newContact) {
         phoneBook.set(position, newContact);
@@ -90,8 +100,8 @@ public class MobilePhone {
         return -1;
     }
 
-    private boolean isNameExists(String name) {
-        if (findItem(name) >= 0) {
+    private boolean isNameExists(Contacts contact) {
+        if (findItem(contact.getName()) >= 0) {
             return true;
         }
         return false;
