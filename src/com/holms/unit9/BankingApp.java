@@ -31,15 +31,27 @@ public class BankingApp {
 
 //        Test Customer class
         Customer holms = new Customer("Holms", 20);
-        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
+        System.out.println("Last transaction was " + holms.showLastTransaction() + "$");
         holms.showTransactionsHistory();
         holms.addTransaction(10);
-        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
+        System.out.println("Last transaction was " + holms.showLastTransaction() + "$");
 
 
+//       Test Branch class
+        System.out.println("\nTesting Branch class");
+        Branch kievBranch = new Branch("Kiev Branch ");
+        System.out.println("Added new branch " + kievBranch.getBranchName());
+        kievBranch.addCustomer("Ivan Petrov", 20);
+        kievBranch.addCustomer("Simon Petlyura", 350);
+        kievBranch.addCustomer("Alex Zeos", 5);
+        kievBranch.showAllCustomers();
+        kievBranch.showAllCustomersActivity();
+//        Adding transactions
+        kievBranch.addTransaction("Ivan Petrov", -1.0);
+        kievBranch.addTransaction("Ivan Petrov", 30);
+        kievBranch.addTransaction("Alex Zeos", 50);
 
-
-
+        kievBranch.showAllCustomersActivity();
 
 
     }

@@ -25,7 +25,33 @@ public class Branch {
             return false;
         }
         Customer currentCustomer = getCustomer(customerName);
+        if (currentCustomer.addTransaction(transactionAmount)) {
+            return true;
+        }
+        return false;
+    }
 
+    public void showAllCustomers() {
+        Customer customer;
+        for (int i = 0; i < customers.size(); i++) {
+            customer = customers.get(i);
+            System.out.println((i + 1) + ". " + customer.getCustomerName());
+        }
+    }
+
+    public void showAllCustomersActivity() {
+        Customer customer;
+        for (int i = 0; i < customers.size(); i++) {
+            customer = customers.get(i);
+            System.out.print((i + 1) + ". " + customer.getCustomerName());
+            System.out.println(" has following activity: ");
+            showCustomersTransactions(customer);
+            System.out.println();
+        }
+    }
+
+    private void showCustomersTransactions(Customer customer) {
+        customer.showTransactionsHistory();
     }
 
     private Customer getCustomer(String customerName) {
@@ -45,7 +71,7 @@ public class Branch {
         return false;
     }
 
-    public int getCustomerIdx(String customerName) {
+    private int getCustomerIdx(String customerName) {
         Customer customer;
         for (int i = 0; i < customers.size(); i++) {
             customer = customers.get(i);
@@ -54,14 +80,6 @@ public class Branch {
             }
         }
         return -1;
-    }
-
-    public void showAllCustomers() {
-        Customer customer;
-        for (int i = 0; i < customers.size(); i++) {
-            customer = customers.get(i);
-            System.out.println(i + ". " + customer.getCustomerName());
-        }
     }
 
 
