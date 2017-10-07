@@ -26,4 +26,21 @@ package com.holms.unit9;
 
 */
 public class BankingApp {
+
+    public static void main(String[] args) {
+
+//        Test Customer class
+        Customer holms = new Customer("Holms", 20);
+        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
+        holms.showTransactionsHistory();
+        holms.addTransaction(10);
+        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
+
+
+
+
+
+
+
+    }
 }

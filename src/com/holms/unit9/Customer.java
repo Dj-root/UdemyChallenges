@@ -58,11 +58,9 @@ public class Customer {
         return balance;
     }
 
-    public static void main(String[] args) {
-        Customer holms = new Customer("Holms", 20);
-        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
-        holms.showTransactionsHistory();
-        holms.addTransaction(10);
-        System.out.println("Last transaction was "+holms.showLastTransaction()+"$");
+    public String getCustomerName() {
+        return customerName;
     }
+
+
 }
