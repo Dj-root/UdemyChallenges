@@ -20,6 +20,11 @@ public class Bank {
         return true;
     }
 
+    public boolean addCustomer(String CustomerName, double initialBallance, String BranchName){
+
+
+        return false;
+    }
 //    public boolean addTransaction(String customerName, double transactionAmount) {
 //        if (!isCustomerExists(customerName)) {
 //            System.out.println("This customer is not exists. You cannot process transaction");
