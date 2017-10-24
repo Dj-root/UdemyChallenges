@@ -64,7 +64,7 @@ public class Branch {
         }
     }
 
-    private boolean isCustomerExists(String customerName) {
+    public boolean isCustomerExists(String customerName) {
         if (getCustomerIdx(customerName) >= 0) {
             return true;
         }

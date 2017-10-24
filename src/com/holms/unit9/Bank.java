@@ -20,8 +20,24 @@ public class Bank {
         return true;
     }
 
-    public boolean addCustomer(String CustomerName, double initialBallance, String BranchName){
+    public boolean addCustomer(String customerName, double initialBallance, String branchName) {
 
+        Branch currentBranch;
+// Check if branch exists
+        if (isBranchExists(branchName)) {
+            currentBranch = getBranch(branchName);
+        } else {
+            System.out.println("Branch " + branchName + " does not exists");
+            return false;
+        }
+
+// Check if customer exists
+        if (currentBranch.isCustomerExists(customerName)) {
+            System.out.println("Customer " + customerName + " already exists in the " + currentBranch.getBranchName() +
+                    " branch");
+        } else {
+            currentBranch.addCustomer(customerName, initialBallance);
+        }
 
         return false;
     }
