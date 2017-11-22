@@ -57,10 +57,15 @@ public class Bank {
         Branch branch;
         for (int i = 0; i < branches.size(); i++) {
             branch = branches.get(i);
-            System.out.println(i + ". " + branch.getBranchName());
+            System.out.println(i+1 + ". " + branch.getBranchName());
+//            Little bit redesigned
+//            System.out.println(branch.getBranchName());
         }
     }
 
+    public ArrayList getAllBranchesArrayList(){
+        return branches;
+    }
 
     private Branch getBranch(String branchName) {
         int branchId;

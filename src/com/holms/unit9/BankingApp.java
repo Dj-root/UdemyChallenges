@@ -1,5 +1,7 @@
 package com.holms.unit9;
 
+import java.util.ArrayList;
+
 /* TODO:
          You job is to create a simple banking application.
          There should be a Bank class
@@ -76,9 +78,9 @@ public class BankingApp {
         myBank.addCustomer("John Dou", 10, "Odessa Branch");
         myBank.addCustomer("Vasily Pupkin", 50, "Kharkov Branch");
 
+        ArrayList<Branch> myBranches = myBank.getAllBranchesArrayList();
 
-//        myBank.
-
+        myBranches.get(0);
 
     }
 }
