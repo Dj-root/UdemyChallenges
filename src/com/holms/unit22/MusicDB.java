@@ -11,5 +11,6 @@ public class MusicDB {
         }
 
         datasource.close();
+        System.out.println("It's finished");
     }
 }
