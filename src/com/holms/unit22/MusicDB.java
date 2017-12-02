@@ -13,7 +13,7 @@ public class MusicDB {
             return;
         }
 
-        List<Artist> artists = datasource.queryArtists();
+        List<Artist> artists = datasource.queryArtists(Datasource.ORDER_BY_ASC);
         if (artists==null){
             System.out.println("No artists!");
             return;
@@ -27,4 +27,5 @@ public class MusicDB {
 
         System.out.println("It's finished");
     }
+
 }
