@@ -47,6 +47,9 @@ public class Datasource {
                     " WHERE " + TABLE_ATRISTS + "." + COLUMN_ALBUM_NAME + " = \"";
     public static final String QUERY_ALBUMS_BY_ARTIST_SORT =
             " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
+    public static final String QUERY_ARTISTS_START = "SELECT * FROM " + TABLE_ATRISTS;
+    public static final String QUERY_ARTISTS_SORT =
+            " ORDER BY " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
 
     private Connection conn;
 
@@ -73,12 +76,9 @@ public class Datasource {
 
     public List<Artist> queryArtists(int sortOrder) {
 
-        StringBuilder sb = new StringBuilder("SELECT * FROM ");
-        sb.append(TABLE_ATRISTS);
+        StringBuilder sb = new StringBuilder(QUERY_ARTISTS_START);
         if (sortOrder != ORDER_BY_NONE) {
-            sb.append(" ORDER BY ");
-            sb.append(COLUMN_ARTIST_NAME);
-            sb.append(" COLLATE NOCASE ");
+            sb.append(QUERY_ARTISTS_SORT);
             if (sortOrder == ORDER_BY_DESC) {
                 sb.append("DESC");
             } else {
@@ -86,6 +86,7 @@ public class Datasource {
             }
         }
 
+        System.out.println("SQL statement = " + sb.toString());
 
         try (Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery(sb.toString())) {
