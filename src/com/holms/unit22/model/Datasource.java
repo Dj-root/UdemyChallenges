@@ -40,6 +40,14 @@ public class Datasource {
     public static final int ORDER_BY_ASC = 2;
     public static final int ORDER_BY_DESC = 3;
 
+    public static final String QUERY_ALBUMS_BY_ARTIST_START =
+            "SELECT " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " FROM " + TABLE_ALBUMS +
+                    " INNER JOIN " + TABLE_ATRISTS + " ON " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST +
+                    " = " + TABLE_ATRISTS + "." + COLUMN_ARTIST_ID +
+                    " WHERE " + TABLE_ATRISTS + "." + COLUMN_ALBUM_NAME + " = \"";
+    public static final String QUERY_ALBUMS_BY_ARTIST_SORT =
+            " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
+
     private Connection conn;
 
     public boolean open() {
@@ -99,42 +107,13 @@ public class Datasource {
     }
 
     public List<String> queryAlbumsForArtist(String artistName, int sortOrder) {
-        /*
-        SELECT albums.name FROM albums
-INNER JOIN artists ON albums.artist=artists._id
-WHERE artists.name = "Pink Floyd"
-ORDER BY albums.name collate nocase asc
-        */
-        StringBuilder sb = new StringBuilder("SELECT ");
-        sb.append(TABLE_ALBUMS);
-        sb.append(".");
-        sb.append(COLUMN_ALBUM_NAME);
-        sb.append(" FROM ");
-        sb.append(TABLE_ALBUMS);
-        sb.append(" INNER JOIN ");
-        sb.append(TABLE_ATRISTS);
-        sb.append(" ON ");
-        sb.append(TABLE_ALBUMS);
-        sb.append(".");
-        sb.append(COLUMN_ALBUM_ARTIST);
-        sb.append("=");
-        sb.append(TABLE_ATRISTS);
-        sb.append(".");
-        sb.append(COLUMN_ARTIST_ID);
-        sb.append(" WHERE ");
-        sb.append(TABLE_ATRISTS);
-        sb.append(".");
-        sb.append(COLUMN_ARTIST_NAME);
-        sb.append("=\"");
+
+        StringBuilder sb = new StringBuilder(QUERY_ALBUMS_BY_ARTIST_START);
         sb.append(artistName);
         sb.append("\"");
 
         if (sortOrder != ORDER_BY_NONE) {
-            sb.append(" ORDER BY ");
-            sb.append(TABLE_ALBUMS);
-            sb.append(".");
-            sb.append(COLUMN_ALBUM_NAME);
-            sb.append(" COLLATE NOCASE ");
+            sb.append(QUERY_ALBUMS_BY_ARTIST_SORT);
             if (sortOrder == ORDER_BY_DESC) {
                 sb.append("DESC");
             } else {
@@ -147,7 +126,7 @@ ORDER BY albums.name collate nocase asc
              ResultSet results = statement.executeQuery(sb.toString())) {
 
             List<String> albums = new ArrayList<>();
-            while (results.next()){
+            while (results.next()) {
                 albums.add(results.getString(1));
             }
             return albums;
