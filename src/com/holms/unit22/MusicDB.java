@@ -23,6 +23,10 @@ public class MusicDB {
             System.out.println("ID = "+artist.getId()+" , Name = "+artist.getName());
         }
 
+        List<String> albumsForArtist = datasource.queryAlbumsForArtist("Pink Floyd", Datasource.ORDER_BY_ASC);
+        for (String album: albumsForArtist){
+            System.out.println(album);
+        }
         datasource.close();
 
         System.out.println("It's finished");
