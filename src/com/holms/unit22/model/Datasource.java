@@ -47,9 +47,23 @@ public class Datasource {
                     " WHERE " + TABLE_ATRISTS + "." + COLUMN_ALBUM_NAME + " = \"";
     public static final String QUERY_ALBUMS_BY_ARTIST_SORT =
             " ORDER BY " + TABLE_ALBUMS + "." + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
-    public static final String QUERY_ARTISTS_START = "SELECT * FROM " + TABLE_ATRISTS;
-    public static final String QUERY_ARTISTS_SORT =
-            " ORDER BY " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + " COLLATE NOCASE ";
+    public static final String QUERY_ARTISTS_FOR_SONG_START =
+            "SELECT " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + ", " + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + "," +
+                    TABLE_SONGS + "." + COLUMN_SONG_TRACK + " FROM " + TABLE_SONGS +
+                    " INNER JOIN " + TABLE_ALBUMS + " ON " + TABLE_SONGS + "." + COLUMN_SONG_ALBUM + " = " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ID +
+                    " INNER JOIN " + TABLE_ATRISTS + " ON " + TABLE_ALBUMS + "." + COLUMN_ALBUM_ARTIST + " = " + TABLE_ATRISTS + "." + COLUMN_ARTIST_ID +
+                    " WHERE " + TABLE_SONGS + "." + COLUMN_SONG_TITLE + " = \"";
+
+    /*
+    SELECT artists.name, albums.name, songs.track
+FROM songs
+INNER JOIN albums ON songs.album=albums._id
+INNER JOIN artists ON albums.artist = artists._id
+WHERE songs.title="Go Your Own Way"
+ORDER BY artists.name, albums.name COLLATE NOCASE ASC
+    */
+    public static final String QUERY_ARTISTS_FOR_SONG_SORT =
+            " ORDER BY " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + "," + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " COLLATE NOCASE ";
 
     private Connection conn;
 
@@ -74,9 +88,9 @@ public class Datasource {
         }
     }
 
-    public List<Artist> queryArtists(int sortOrder) {
+    public List<Artist> queryArtists(String,int sortOrder) {
 
-        StringBuilder sb = new StringBuilder(QUERY_ARTISTS_START);
+        StringBuilder sb = new StringBuilder(QUERY_ARTISTS_FOR_SONG_START);
         if (sortOrder != ORDER_BY_NONE) {
             sb.append(QUERY_ARTISTS_SORT);
             if (sortOrder == ORDER_BY_DESC) {
