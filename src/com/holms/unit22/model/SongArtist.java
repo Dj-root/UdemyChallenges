@@ -1,6 +1,6 @@
 package com.holms.unit22.model;
 
-public class SongsArtist {
+public class SongArtist {
 
     private String artistName;
     private String albumName;

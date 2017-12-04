@@ -1,8 +1,5 @@
 package com.holms.unit22.model;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import sun.security.provider.PolicySpiFile;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -157,4 +154,37 @@ ORDER BY artists.name, albums.name COLLATE NOCASE ASC
             return null;
         }
     }
+
+    public List<SongArtist> queryArtistsForSong(String songName, int sortOrder) {
+        StringBuilder sb = new StringBuilder(QUERY_ARTISTS_FOR_SONG_START);
+        sb.append(songName);
+        sb.append("\"");
+        if (sortOrder != ORDER_BY_NONE) {
+            sb.append(QUERY_ARTIST_FOR_SONG_SORT);
+            if (sortOrder == ORDER_BY_DESC) {
+                sb.append("DESC");
+            } else {
+                sb.append("ASC");
+            }
+        }
+        System.out.println("SQL Statement: " + sb.toString());
+
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(sb.toString())) {
+
+            List<SongArtist> songArtists = new ArrayList<>();
+            while (results.next()) {
+                SongArtist songArtist = new SongArtist();
+                songArtist.setArtistName(results.getString(1));
+                songArtist.setAlbumName(results.getString(2));
+                songArtist.setTrack(results.getInt(3));
+                songArtists.add(songArtist);
+            }
+            return songArtists;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
