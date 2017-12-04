@@ -2,6 +2,7 @@ package com.holms.unit22;
 
 import com.holms.unit22.model.Artist;
 import com.holms.unit22.model.Datasource;
+import com.holms.unit22.model.SongArtist;
 
 import java.util.List;
 
@@ -27,6 +28,20 @@ public class MusicDB {
         for (String album : albumsForArtist) {
             System.out.println(album);
         }
+
+        List<SongArtist> songArtists = datasource.queryArtistsForSong("Go Your Own Way", Datasource.ORDER_BY_ASC);
+        if (songArtists == null) {
+            System.out.println("Couldn't find the artist for the song");
+            return;
+        }
+        for (SongArtist artist : songArtists) {
+            System.out.println("Artist name = " + artist.getArtistName() +
+                    " Album name = " + artist.getAlbumName() +
+                    " Track = " + artist.getTrack());
+        }
+
+        datasource.querySongsMetadata();
+
         datasource.close();
 
         System.out.println("It's finished");
