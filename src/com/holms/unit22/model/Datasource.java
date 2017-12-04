@@ -54,17 +54,6 @@ public class Datasource {
             " ORDER BY " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + " ," +
                     TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " COLLATE NOCASE ";
 
-    /*
-    SELECT artists.name, albums.name, songs.track
-FROM songs
-INNER JOIN albums ON songs.album=albums._id
-INNER JOIN artists ON albums.artist = artists._id
-WHERE songs.title="Go Your Own Way"
-ORDER BY artists.name, albums.name COLLATE NOCASE ASC
-    */
-//    public static final String QUERY_ARTISTS_FOR_SONG_SORT =
-//            " ORDER BY " + TABLE_ATRISTS + "." + COLUMN_ARTIST_NAME + "," + TABLE_ALBUMS + "." + COLUMN_ALBUM_NAME + " COLLATE NOCASE ";
-
     private Connection conn;
 
     public boolean open() {
@@ -195,12 +184,12 @@ ORDER BY artists.name, albums.name COLLATE NOCASE ASC
 
             ResultSetMetaData meta = results.getMetaData();
             int numColumns = meta.getColumnCount();
-            for (int i=1; i<=numColumns; i++){
+            for (int i = 1; i <= numColumns; i++) {
                 System.out.format("Column %d in the songs table is names %s\n",
                         i, meta.getColumnName(i));
             }
         } catch (SQLException e) {
-            System.out.println("Query failed: "+e.getMessage());
+            System.out.println("Query failed: " + e.getMessage());
         }
 
     }
