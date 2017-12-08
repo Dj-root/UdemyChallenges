@@ -191,7 +191,19 @@ public class Datasource {
         } catch (SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
         }
-
     }
 
+    public int getCount(String table) {
+        String sql = "Select count(*) FROM " + table;
+        try (Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery(sql)) {
+            int count = results.getInt(1);
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
+            return -1;
+        }
+    }
 }
+
+
